@@ -14,7 +14,7 @@ const maxScale : Function = (scale : number, i : number, n : number) : number =>
 }
 
 const divideScale : Function = (scale : number, i : number, n : number) : number => {
-    return Math.min(1 / n, divideScale(scale, i, n)) * n
+    return Math.min(1 / n, maxScale(scale, i, n)) * n
 }
 
 const scaleFactor : Function = (scale : number) : number => Math.floor(scale / scDiv)
@@ -128,7 +128,7 @@ class SLNode {
     state : State = new State()
 
     constructor(private i : number) {
-
+        this.addNeighbor()
     }
 
     addNeighbor() {
