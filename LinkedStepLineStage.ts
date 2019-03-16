@@ -32,7 +32,7 @@ const drawSLNode = (context : CanvasRenderingContext2D, i : number, scale : numb
     const xgap : number = w / (nodes + 1)
     const ygap : number = h / (nodes + 1)
     context.strokeStyle = foreColor
-    context.lineCap = foreColor
+    context.lineCap = 'round'
     context.lineWidth = Math.min(w, h) / strokeFactor
     const sc1 : number = divideScale(scale, 0, 2)
     const sc2 : number = divideScale(scale, 1, 2)
@@ -43,4 +43,35 @@ const drawSLNode = (context : CanvasRenderingContext2D, i : number, scale : numb
     context.lineTo(xgap, 0)
     context.stroke()
     context.restore()
+}
+
+class LinkedStepLineStage {
+
+    canvas : HTMLCanvasElement = document.createElement('canvas')
+    context : CanvasRenderingContext2D
+
+    initCanvas() {
+        this.canvas.width = w
+        this.canvas.height = h
+        this.context = this.canvas.getContext('2d')
+        document.body.appendChild(this.canvas)
+    }
+
+    render() {
+        this.context.fillStyle = backColor
+        this.context.fillRect(0, 0, w, h)
+    }
+
+    handleTap() {
+        this.canvas.onmousedown = () => {
+
+        }
+    }
+
+    static init() {
+        const stage : LinkedStepLineStage = new LinkedStepLineStage()
+        stage.initCanvas()
+        stage.render()
+        stage.handleTap()
+    }
 }
