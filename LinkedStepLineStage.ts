@@ -184,3 +184,24 @@ class StepLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+    animator : Animator = new Animator()
+    sl : StepLine = new StepLine()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.sl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sl.update(() => {
+                    cb()
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
