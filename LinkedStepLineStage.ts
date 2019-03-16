@@ -27,3 +27,20 @@ const mirrorValue : Function = (scale : number, a : number, b : number) : number
 const updateValue : Function = (scale : number, dir : number, a : number, b : number) : number => {
     return mirrorValue(scale, a, b) * dir * scGap
 }
+
+const drawSLNode = (context : CanvasRenderingContext2D, i : number, scale : number) => {
+    const xgap : number = w / (nodes + 1)
+    const ygap : number = h / (nodes + 1)
+    context.strokeStyle = foreColor
+    context.lineCap = foreColor
+    context.lineWidth = Math.min(w, h) / strokeFactor
+    const sc1 : number = divideScale(scale, 0, 2)
+    const sc2 : number = divideScale(scale, 1, 2)
+    context.save()
+    context.translate(-xgap + xgap * i + xgap * sc1, h - ygap * i - ygap * sc2)
+    context.beginPath()
+    context.moveTo(0, 0)
+    context.lineTo(xgap, 0)
+    context.stroke()
+    context.restore()
+}
